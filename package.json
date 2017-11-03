@@ -1,0 +1,37 @@
+{
+  "name": "split-to-streams",
+  "version": "1.0.0",
+  "description": "A Node.JS Transform interface that splits input into streams",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "lint": "eslint lib/ index.js",
+    "test": "node test/",
+    "test:pretty": "node test/ | ./node_modules/.bin/tap-spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpotra/split-to-streams.git"
+  },
+  "keywords": [
+    "split",
+    "delimiter",
+    "stream",
+    "buffer",
+    "transform"
+  ],
+  "author": "Mihai Potra <mike@mpotra.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mpotra/split-to-streams/issues"
+  },
+  "homepage": "https://github.com/mpotra/split-to-streams#readme",
+  "devDependencies": {
+    "eslint": "^4.10.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.8.0"
+  }
+}
