@@ -119,7 +119,7 @@ Creates a new `SimpleSplit` instance.
 
 ### `class LineSplit`
 
-The class extends on `SimpleSplit`, and splits input by `\n` (CR) delimiters, providing lines as chunks.
+The class extends on `SimpleSplit`, and splits input by `\n` (LF) delimiters, providing lines as chunks.
 
 
 ## Partial Matching
