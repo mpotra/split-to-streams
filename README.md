@@ -12,6 +12,7 @@ A Node.JS `stream.Transform` interface that splits input into streams.
     - [class `SimpleSplit`](#class-simplesplit)
     - [class `LineSplit`](#class-linesplit)
         - [Example](#example-1)
+- [Partial Matching](#partial-matching)
 - [License](#license)
 
 ## How it works
