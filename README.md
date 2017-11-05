@@ -121,6 +121,40 @@ Creates a new `SimpleSplit` instance.
 
 The class extends on `SimpleSplit`, and splits input by `\n` (CR) delimiters, providing lines as chunks.
 
+
+## Partial Matching
+
+- Enabled by default. Set `options.ignorePrevious` to `false`, in contructor, to disable.
+- Works only with `delimiter.length` greater than 1.
+
+Partial matching allows the `StreamSplit` class to quickly check incoming chunks for delimiter parts.
+Sometimes, a `delimiter` matchs comes in via two or more separate chunks.
+
+Example:
+```
+Full string: "Hello <delimiter>World"
+Incoming chunks: ["Hello <del", "imit", "er>World"]
+```
+
+Partial matching, will inspect the end of each chunk, and if it finds a partial match of the delimiter, it will store that part.
+Differently from traditional splitters, it will release the unused part of the chunk, only keeping the partial match.
+
+Flow example:
+```
+chunk "Hello <del":
+ - save( Buffer.from("<del") ); // partial match
+ - push( Buffer.from("Hello ") ); // send chunk to consumer streams.
+chunk "imit":
+ - save( Buffer.from("imit") ); // partial match. entire stored buffer now "<delimit"
+chunk "er>World":
+ - save( Buffer.from("er>") ); // partial match. entire stored buffer now "<delimiter>"
+ - emitDelimiterMatch(); // A delimiter matched
+ - push( Buffer.from("World") ); // send chunk to consumer streams.
+```
+
+Note: At the end of the input stream *(input stream emits `end`)*, `StreamSplit` will push any remaining stored chunk, to the consumers; as expected in such scenarios.
+
+
 ##### Example
 ```javascript
 const {LineSplit} = require('split-to-stream');
