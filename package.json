@@ -1,6 +1,6 @@
 {
   "name": "split-to-streams",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Node.JS Transform interface that splits input into streams",
   "main": "index.js",
   "directories": {
