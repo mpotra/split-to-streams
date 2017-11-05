@@ -122,6 +122,19 @@ Creates a new `SimpleSplit` instance.
 
 The class extends on `SimpleSplit`, and splits input by `\n` (LF) delimiters, providing lines as chunks.
 
+##### Example
+```javascript
+const {LineSplit} = require('split-to-stream');
+const lineSplitter = new LineSplit();
+const input = getReadableStream(); // e.g. fs.createReadStream(filename);
+
+lineSplitter.on('data', function(lineChunk) {
+    // handle lineChunk.
+});
+
+input.pipe(lineSplitter);
+```
+
 
 ## Partial Matching
 
@@ -155,19 +168,6 @@ chunk "er>World":
 
 Note: At the end of the input stream *(input stream emits `end`)*, `StreamSplit` will push any remaining stored chunk, to the consumers; as expected in such scenarios.
 
-
-##### Example
-```javascript
-const {LineSplit} = require('split-to-stream');
-const lineSplitter = new LineSplit();
-const input = getReadableStream(); // e.g. fs.createReadStream(filename);
-
-lineSplitter.on('data', function(lineChunk) {
-    // handle lineChunk.
-});
-
-input.pipe(lineSplitter);
-```
 
 ## License
 MIT
