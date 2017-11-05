@@ -58,8 +58,7 @@ _________________________________
 const StreamSplit = require('split-to-streams');
 
 const input = getReadableStream();
-const spliter = new StreamSplit('\n'); // Split by CR
-
+const spliter = new StreamSplit('\n'); // Split by LF
 splitter.on('data', function (stream) {
     // `stream` is a `stream.Readable` instance that will push data chunks within each line.
     stream.on('data', function (chunk) {
