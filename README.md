@@ -81,11 +81,18 @@ Creates a new `StreamSplit` instance.
     - `ignorePrevious` - *default: false* If set to `true`, disables partial matching.
     - `createStream` - *(optional)* - A custom `function` to create a `stream.Readable`-like object, every time the `delimiter` is matched.
 
-#### Note: Emit at creation
-`StreamSplit` instances will always emit a new stream object on creation, in order to capture initial chunks until and if first delimiter is found.
+    
+#### ~~Note: Emit at creation~~ *(fixed)*
 
-As such, overwriting the `createStream()` method after creation, will result in different objects being emitted (first will always be the default).
-Please use `options.createStream` or by extending the `StreamSplit` class, instead of replacing the `createStream()` method.
+**This behavior has been corrected in v1.1.0**
+The first stream object will not be emitted at creation anymore, but on first write.
+Overwriting `createStream()` method, before the first write, will not yield different objects anymore.
+
+> `StreamSplit` instances will always emit a new stream object on creation, in order to capture initial chunks until and if first delimiter is found.
+> 
+> As such, overwriting the `createStream()` method after creation, will result in different objects being emitted (first will always be the default).
+> Please use `options.createStream` or by extending the `StreamSplit` class, instead of replacing the `createStream()` method.
+
 
 #### Extending
 ```javascript
