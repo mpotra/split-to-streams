@@ -248,6 +248,43 @@ test('Allows custom Stream instances', function(assert) {
   splitter.end(input.join('\n'));
 });
 
+test('Allows custom Stream instances - overwrite method', function(assert) {
+  const input = [
+    'Hello world',
+    'This is a test',
+    'with 3 lines',
+  ];
+  const nExpectedStreams = input.length;
+
+  assert.plan(1);
+
+  class CustomReadableStream extends Readable {
+    constructor() {
+      super();
+    }
+
+    _read() {
+    }
+  }
+
+  const splitter = new StreamSplit('\n');
+  splitter.createStream = () => new CustomReadableStream();
+
+  let customStreams = 0;
+
+  splitter.on('data', function(stream) {
+    if (stream instanceof CustomReadableStream) {
+      customStreams++;
+    }
+  });
+
+  splitter.on('finish', function() {
+    assert.equal(customStreams, nExpectedStreams, 'Split into expected number of custom streams instances');
+  });
+
+  splitter.end(input.join('\n'));
+});
+
 test('(LineSplit) Simple line split implementation', function(assert) {
   const input = [
     'Hello world',
